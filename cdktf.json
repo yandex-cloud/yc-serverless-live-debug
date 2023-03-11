@@ -1,0 +1,14 @@
+{
+  "language": "typescript",
+  "app": "node dist/local-client/cdktf/main.js",
+  "projectId": "1682eb62-578b-4626-bc9f-330cae612736",
+  "sendCrashReports": "false",
+  "terraformProviders": [
+    "yandex-cloud/yandex"
+  ],
+  "terraformModules": [],
+  "context": {
+    "excludeStackIdFromLogicalIds": "true",
+    "allowSepCharsInLogicalIds": "true"
+  }
+}
