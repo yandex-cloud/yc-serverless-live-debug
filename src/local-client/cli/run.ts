@@ -9,6 +9,13 @@ import path from 'node:path';
 import { runLocalClient } from '..';
 import { logger } from '../../helpers/logger';
 
+const CONFIG_FILES = [
+  'live-debug.config.ts',
+  'live-debug.config.js',
+  'live-debug.config.mjs',
+  'live-debug.config.cjs',
+];
+
 export default async function () {
   const configFile = resolveConfigFile();
   const outputsFile = resolveOutputsFile();
@@ -18,7 +25,6 @@ export default async function () {
 
 function resolveConfigFile() {
   // todo: allow custom config via --config option
-  const CONFIG_FILES = [ 'live-debug.config.ts', 'live-debug.config.js' ];
   const configFile = CONFIG_FILES.find(file => fs.existsSync(file));
   if (!configFile) throw new Error(`No live-debug.config.(ts|js) found`);
   logger.info(`Using config: ${configFile}`);

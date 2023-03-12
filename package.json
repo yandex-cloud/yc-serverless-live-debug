@@ -60,13 +60,12 @@
     "np": "^7.6.3",
     "typescript": "^4.9.5"
   },
-  "author": "Vitaliy Potapov",
   "repository": {
     "type": "git",
-    "url": "git://github.com/vitalets/yc-serverless-live-debug.git"
+    "url": "git://github.com/yandex-cloud-examples/yc-serverless-live-debug.git"
   },
   "publishConfig": {
     "access": "public"
   },
-  "license": "MIT"
+  "license": "Apache License 2.0"
 }
