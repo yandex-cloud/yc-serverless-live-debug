@@ -33,7 +33,7 @@ npm i -D @yandex-cloud/sls-live-debug
 
 Deploy cloud components:
 ```
-npx live-debug deploy
+npx sls-live-debug deploy
 ```
 Review terraform plan and press **Approve**.
 
@@ -106,8 +106,8 @@ See [example](/example) for more details.
 > Don't forget to add `.live-debug` dir to `.gitignore`
 
 ## Usage
-All requests to cloud `stub` function will come to config's handler.
-Inside handler you can setup routing for your needs.
+All requests to cloud `stub` function will come to local handler.
+Inside handler you can setup any routing for your needs.
 
 #### Debug single function
 To debug single function you can just assign handler in config:
