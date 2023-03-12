@@ -26,80 +26,83 @@ Main components:
 ## Setup
 Ensure that you have [Terraform installed](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart).
 
-Install package:
-```
-npm i -D @yandex-cloud/sls-live-debug
-```
+1. Install package:
+    ```
+    npm i -D @yandex-cloud/sls-live-debug
+    ```
 
-Deploy cloud components:
-```
-npx sls-live-debug deploy
-```
-Review terraform plan and press **Approve**.
+2. Deploy cloud components:
+    ```
+    npx sls-live-debug deploy
+    ```
+    Review terraform plan and press **Approve**.
 
-> By default this command uses [yc cli](https://cloud.yandex.ru/docs/cli/) to get auth token and cloud id. You can manually set these values by `YC_TOKEN` and `YC_CLOUD_ID` env vars
+    > By default this command uses [yc cli](https://cloud.yandex.ru/docs/cli/) to get auth token and cloud id. You can manually set these values by `YC_TOKEN` and `YC_CLOUD_ID` env vars
 
-> To authorize by service account key use `YC_SERVICE_ACCOUNT_KEY_FILE` env var:
+    > To authorize by service account key use `YC_SERVICE_ACCOUNT_KEY_FILE` env var:
 
-```
-YC_SERVICE_ACCOUNT_KEY_FILE=path/to/key.json npx sls-live-debug deploy
-```
+    ```
+    YC_SERVICE_ACCOUNT_KEY_FILE=path/to/key.json npx sls-live-debug deploy
+    ```
 
-> By default all components will be created in separate cloud catalogue `live-debug`. You can change this name using `LIVE_DEBUG_FOLDER_NAME` env var:
-```
-LIVE_DEBUG_FOLDER_NAME=live-debug-test npx sls-live-debug deploy
-```
+    > By default all components will be created in separate cloud catalogue `live-debug`. You can change this name using `LIVE_DEBUG_FOLDER_NAME` env var:
+    ```
+    LIVE_DEBUG_FOLDER_NAME=live-debug-test npx sls-live-debug deploy
+    ```
 
-Create `live-debug.config.ts` in project root:
-```ts
-import { defineConfig } from '@yandex-cloud/sls-live-debug';
-import { Handler } from '@yandex-cloud/function-types';
+3. Create `live-debug.config.ts` in project root:
+    ```ts
+    import { defineConfig } from '@yandex-cloud/sls-live-debug';
+    import { Handler } from '@yandex-cloud/function-types';
 
-export default defineConfig({
-  handler: <Handler.Http>(event => {
-    console.log('got request', event);
-    return {
-      statusCode: 200,
-      body: `Hello from local code!`,
-    };
-  })
-});
-```
+    export default defineConfig({
+      handler: <Handler.Http>(event => {
+        console.log('got request', event);
+        return {
+          statusCode: 200,
+          body: `Hello from local code!`,
+        };
+      })
+    });
+    ```
+    <details>
+    <summary>Or `live-debug.config.js` (cjs):</summary>
 
-Or `live-debug.config.js` (cjs):
-```js
-const { defineConfig } = require('@yandex-cloud/sls-live-debug');
+    ```js
+    const { defineConfig } = require('@yandex-cloud/sls-live-debug');
 
-module.exports = defineConfig({
-  handler: event => {
-    console.log('got request', event);
-    return {
-      statusCode: 200,
-      body: `Hello from local code!`,
-    };
-  }
-});
-```
+    module.exports = defineConfig({
+      handler: event => {
+        console.log('got request', event);
+        return {
+          statusCode: 200,
+          body: `Hello from local code!`,
+        };
+      }
+    });
+    ```
 
-Run live debug:
-```
-npx sls-live-debug run
-```
-Expected output:
-```
-Using config: live-debug.config.ts
-Running local client...
-Starting child...
-Child started
-Watching changes in: live-debug.config.ts
-WS connection opened
-Local client ready.
-Check url: https://**********.apigw.yandexcloud.net
-Waiting requests...
-GET /?
-Response sent
-```
-Click provided link and check console.
+    </details>
+
+4. Run live debug:
+    ```
+    npx sls-live-debug run
+    ```
+    Expected output:
+    ```
+    Using config: live-debug.config.ts
+    Running local client...
+    Starting child...
+    Child started
+    Watching changes in: live-debug.config.ts
+    WS connection opened
+    Local client ready.
+    Check url: https://**********.apigw.yandexcloud.net
+    Waiting requests...
+    GET /?
+    Response sent
+    ```
+    Click provided link and check console.
 
 See [example](/example) for more details.
 
