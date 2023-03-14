@@ -1,0 +1,71 @@
+{
+  "name": "@yandex-cloud/sls-live-debug",
+  "description": "Live debug of Yandex cloud functions",
+  "version": "1.0.1",
+  "bin": {
+    "sls-live-debug": "dist/local-client/cli"
+  },
+  "main": "dist/local-client/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "cdktf.json"
+  ],
+  "scripts": {
+    "init": "git config core.hooksPath ./scripts/.hooks",
+    "cdktf:get": "npx cdktf get --output src/local-client/.gen",
+    "lint": "eslint src test",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "LOG_LEVEL=${LOG_LEVEL:-error} mocha -r ts-node/register test/*.spec.ts -t 10000",
+    "test:d": "LOG_LEVEL=debug npm t",
+    "example:deploy": "npm run build && pushd example; ../dist/local-client/cli/index.js deploy; popd",
+    "example:run": "pushd example; ts-node ../src/local-client/cli run; popd",
+    "toc": "markdown-toc README.md -i",
+    "build": "./scripts/build.sh",
+    "release": "./scripts/release.sh"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": "eslint"
+  },
+  "dependencies": {
+    "@types/console-log-level": "^1.4.2",
+    "@types/ws": "^8.5.4",
+    "@types/yargs": "^17.0.22",
+    "@yandex-cloud/function-types": "^2.1.0",
+    "@yandex-cloud/nodejs-sdk": "^2.4.2",
+    "cdktf": "^0.15.5",
+    "cdktf-cli": "^0.15.5",
+    "chokidar": "^3.5.3",
+    "console-log-level": "^1.4.1",
+    "constructs": "^10.1.274",
+    "ts-node": "^10.9.1",
+    "ws": "^8.13.0",
+    "yargs": "^17.7.1",
+    "ydb-sdk": "^4.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^8.36.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.15.0",
+    "@types/node-fetch": "^2.6.2",
+    "@types/pino-pretty": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "eslint": "^8.36.0",
+    "globals": "^13.20.0",
+    "lint-staged": "^13.2.0",
+    "markdown-toc": "^1.2.0",
+    "mocha": "^10.2.0",
+    "node-fetch": "^2.6.9",
+    "np": "^7.6.3",
+    "typescript": "^4.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yandex-cloud-examples/yc-serverless-live-debug.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "Apache License 2.0"
+}

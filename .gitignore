@@ -1,0 +1,22 @@
+.DS_Store
+.vscode
+
+# npm
+node_modules
+npm-debug.log
+
+# terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+
+# env
+.env*
+
+# my
+/dist
+
+# cdktf
+cdktf.out
+.gen
+.live-debug
