@@ -3,6 +3,8 @@
 # Exit on any error
 set -euo pipefail
 
+npm run cdktf:get
+
 rm -rf dist
 npx tsc -p tsconfig.build.json
 
