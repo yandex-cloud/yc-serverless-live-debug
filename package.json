@@ -21,7 +21,6 @@
     "example:run": "pushd example; ts-node ../src/local-client/cli run; popd",
     "toc": "markdown-toc README.md -i",
     "build": "./scripts/build.sh",
-    "release": "./scripts/release.sh",
     "prepare": "husky install",
     "prepublishOnly": "npm run build"
   },
