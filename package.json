@@ -1,9 +1,9 @@
 {
-  "name": "@yandex-cloud/sls-live-debug",
+  "name": "@yandex-cloud/serverless-live-debug",
   "description": "Live debug of Yandex cloud functions",
   "version": "1.0.1",
   "bin": {
-    "sls-live-debug": "dist/local-client/cli"
+    "serverless-live-debug": "dist/local-client/cli"
   },
   "main": "dist/local-client/index.js",
   "files": [
@@ -62,7 +62,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/yandex-cloud-examples/yc-serverless-live-debug.git"
+    "url": "git://github.com/yandex-cloud/yc-serverless-live-debug.git"
   },
   "publishConfig": {
     "access": "public"

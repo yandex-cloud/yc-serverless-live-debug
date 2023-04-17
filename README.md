@@ -1,4 +1,4 @@
-# yc-serverless-live-debug
+# Serverless Live Debug
 Live debug of Yandex Cloud Functions in Node.js.
 
 <!-- toc -->
@@ -28,12 +28,12 @@ Ensure that you have [Terraform installed](https://cloud.yandex.ru/docs/tutorial
 
 1. Install package:
     ```
-    npm i -D @yandex-cloud/sls-live-debug
+    npm i -D @yandex-cloud/serverless-live-debug
     ```
 
 2. Deploy cloud components:
     ```
-    npx sls-live-debug deploy
+    npx serverless-live-debug deploy
     ```
     Review terraform plan and press **Approve**.
 
@@ -42,17 +42,17 @@ Ensure that you have [Terraform installed](https://cloud.yandex.ru/docs/tutorial
     > To authorize by service account key use `YC_SERVICE_ACCOUNT_KEY_FILE` env var:
 
     ```
-    YC_SERVICE_ACCOUNT_KEY_FILE=path/to/key.json npx sls-live-debug deploy
+    YC_SERVICE_ACCOUNT_KEY_FILE=path/to/key.json npx serverless-live-debug deploy
     ```
 
     > By default all components will be created in separate cloud catalogue `live-debug`. You can change this name using `LIVE_DEBUG_FOLDER_NAME` env var:
     ```
-    LIVE_DEBUG_FOLDER_NAME=live-debug-test npx sls-live-debug deploy
+    LIVE_DEBUG_FOLDER_NAME=live-debug-test npx serverless-live-debug deploy
     ```
 
 3. Create `live-debug.config.ts` in project root:
     ```ts
-    import { defineConfig } from '@yandex-cloud/sls-live-debug';
+    import { defineConfig } from '@yandex-cloud/serverless-live-debug';
     import { Handler } from '@yandex-cloud/function-types';
 
     export default defineConfig({
@@ -69,7 +69,7 @@ Ensure that you have [Terraform installed](https://cloud.yandex.ru/docs/tutorial
     <summary>Or `live-debug.config.js` (cjs):</summary>
 
     ```js
-    const { defineConfig } = require('@yandex-cloud/sls-live-debug');
+    const { defineConfig } = require('@yandex-cloud/serverless-live-debug');
 
     module.exports = defineConfig({
       handler: event => {
@@ -86,7 +86,7 @@ Ensure that you have [Terraform installed](https://cloud.yandex.ru/docs/tutorial
 
 4. Run live debug:
     ```
-    npx sls-live-debug run
+    npx serverless-live-debug run
     ```
     Expected output:
     ```
@@ -115,7 +115,7 @@ Inside handler you can setup any routing for your needs.
 #### Debug single function
 To debug single function you can just assign handler in config:
 ```ts
-import { defineConfig } from '@yandex-cloud/sls-live-debug';
+import { defineConfig } from '@yandex-cloud/serverless-live-debug';
 import { handler } from './path/to/your/handler';
 
 export default defineConfig({
@@ -126,7 +126,7 @@ export default defineConfig({
 #### Debug several functions
 To debug several functions you can setup routing inside handler (for example by url):
 ```ts
-import { defineConfig } from '@yandex-cloud/sls-live-debug';
+import { defineConfig } from '@yandex-cloud/serverless-live-debug';
 import { Handler } from '@yandex-cloud/function-types';
 import { handlerA } from './path/to/your/handler-a';
 import { handlerB } from './path/to/your/handler-b';
@@ -146,7 +146,7 @@ export default defineConfig({
 You can debug all other triggers: message queue, object storage, etc.
 In cloud console configure needed [trigger](https://cloud.yandex.ru/docs/serverless-containers/concepts/trigger/) to point to `stub` function.
 ```ts
-import { defineConfig } from '@yandex-cloud/sls-live-debug';
+import { defineConfig } from '@yandex-cloud/serverless-live-debug';
 import { Handler } from '@yandex-cloud/function-types';
 
 export default defineConfig({
@@ -157,10 +157,10 @@ export default defineConfig({
 ```
 
 ## Watch
-By default process watches changes in `live-debug.config.ts` and updates handler.
+By default, process watches changes in `live-debug.config.ts` and updates handler.
 You can set `watch` key in config to watch additional files and directories:
 ```ts
-import { defineConfig } from '@yandex-cloud/sls-live-debug';
+import { defineConfig } from '@yandex-cloud/serverless-live-debug';
 
 export default defineConfig({
   watch: 'src',
