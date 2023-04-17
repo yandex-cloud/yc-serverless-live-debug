@@ -22,7 +22,8 @@
     "example:run": "pushd example; ts-node ../src/local-client/cli run; popd",
     "toc": "markdown-toc README.md -i",
     "build": "./scripts/build.sh",
-    "release": "./scripts/release.sh"
+    "release": "./scripts/release.sh",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": "eslint"
@@ -44,6 +45,8 @@
     "ydb-sdk": "^4.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
     "@eslint/js": "^8.36.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.15.0",
@@ -53,6 +56,7 @@
     "@typescript-eslint/parser": "^5.54.1",
     "eslint": "^8.36.0",
     "globals": "^13.20.0",
+    "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "markdown-toc": "^1.2.0",
     "mocha": "^10.2.0",
