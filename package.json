@@ -12,7 +12,6 @@
     "cdktf.json"
   ],
   "scripts": {
-    "init": "git config core.hooksPath ./scripts/.hooks",
     "cdktf:get": "npx cdktf get --output src/local-client/.gen",
     "lint": "eslint src test",
     "lint:fix": "npm run lint -- --fix",
@@ -23,7 +22,8 @@
     "toc": "markdown-toc README.md -i",
     "build": "./scripts/build.sh",
     "release": "./scripts/release.sh",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "npm run build"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": "eslint"
