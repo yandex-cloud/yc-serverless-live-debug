@@ -17,7 +17,7 @@ export class Store extends Construct {
       name: 'store',
       description: 'Store ws connections in ydb',
       runtime: 'nodejs16',
-      entrypoint: 'fn-store/index.handler',
+      entrypoint: 'index.handler',
       memory: 128,
       executionTimeout: '5',
       folderId: scope.folder.id,

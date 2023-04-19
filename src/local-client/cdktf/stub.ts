@@ -20,7 +20,7 @@ export class Stub extends Construct {
       name: 'stub',
       description: 'Proxy requests to local code for live debug',
       runtime: 'nodejs16',
-      entrypoint: 'fn-stub/index.handler',
+      entrypoint: 'index.handler',
       memory: 128,
       executionTimeout: '60',
       folderId: scope.folder.id,

@@ -19,9 +19,8 @@ export default function () {
 }
 
 function deployStack() {
-  const cwd = path.resolve(__dirname, '..', '..', '..');
-  // todo: for debug it's useful to use ts-node and ./main.ts
-  const appPath = path.resolve(__dirname, '..', 'cdktf', 'main.js');
+  const cwd = process.cwd();
+  const appPath = path.resolve(__dirname, './cdktf.js');
   // keep outputs in user's project dir to not depend on node_modules deletion
   const output = path.resolve('.live-debug');
   const outputsFile = path.resolve('.live-debug', 'outputs.json');
