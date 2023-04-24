@@ -4,6 +4,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import nodeExternals from 'webpack-node-externals';
 import BundleDeclarationsWebpackPlugin from 'bundle-declarations-webpack-plugin';
+import ShebangPlugin from 'webpack-shebang-plugin';
 import * as env from './src/helpers/env';
 
 const config: Configuration = {
@@ -45,6 +46,7 @@ const config: Configuration = {
     minimize: false,
   },
   plugins: [
+    new ShebangPlugin(),
     new ForkTsCheckerWebpackPlugin(),
     new BundleDeclarationsWebpackPlugin({
       entry: [

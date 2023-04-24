@@ -6,4 +6,4 @@ export const handler: Handler.Http = async event => {
     statusCode: 200,
     body: `Hello from local code! Your headers: ${headers}`,
   };
-}
+};

@@ -10,7 +10,11 @@
     "esModuleInterop": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "dist/"
+    "outDir": "dist/",
+    "typeRoots": [
+      "node_modules/@types/",
+      "typings/"
+    ]
   },
   "include": [
     "src"

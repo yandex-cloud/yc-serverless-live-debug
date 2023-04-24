@@ -23,9 +23,11 @@ export type LiveDebugStackOutputs = {
 
 export function main() {
   const app = new App();
+
   new LiveDebugStack(app, 'live-debug', {
     folderName: process.env.LIVE_DEBUG_FOLDER_NAME || 'live-debug',
   });
+
   app.synth();
 }
 
