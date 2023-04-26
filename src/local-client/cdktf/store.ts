@@ -18,7 +18,7 @@ export class Store extends Construct {
       description: 'Store ws connections in ydb',
       runtime: 'nodejs16',
       entrypoint: 'index.handler',
-      memory: 128,
+      memory: 1024,
       executionTimeout: '5',
       folderId: scope.folder.id,
       serviceAccountId: scope.sa.id,
