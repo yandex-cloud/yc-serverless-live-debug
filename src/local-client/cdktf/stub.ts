@@ -21,7 +21,7 @@ export class Stub extends Construct {
       description: 'Proxy requests to local code for live debug',
       runtime: 'nodejs16',
       entrypoint: 'index.handler',
-      memory: 128,
+      memory: 1024,
       executionTimeout: '60',
       folderId: scope.folder.id,
       serviceAccountId: scope.sa.id,
