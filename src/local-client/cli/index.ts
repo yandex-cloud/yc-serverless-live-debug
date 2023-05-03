@@ -2,12 +2,12 @@
 
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import deploy from './deploy';
-import run from './run';
+import { deployCommand } from './deploy';
+import { runCommand } from './run';
 
 yargs(hideBin(process.argv))
-  .command('deploy', 'Deploy live-debug components to Yandex cloud', deploy)
-  .command('run', 'Run live-debug', run)
+  .command(deployCommand)
+  .command(runCommand)
   .demandCommand(1)
   .parse();
 

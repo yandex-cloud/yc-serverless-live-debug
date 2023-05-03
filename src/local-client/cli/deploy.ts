@@ -11,27 +11,28 @@
 
 import path from 'node:path';
 import { execSync } from 'node:child_process';
+import { CommandModule } from "yargs";
 
-export default function () {
+const handler = function () {
   ensureAuth();
   ensureCloudId();
   deployStack();
-}
+};
 
 function deployStack() {
-  const cwd = path.resolve(__dirname, '..', '..', '..');
-  // todo: for debug it's useful to use ts-node and ./main.ts
-  const appPath = path.resolve(__dirname, '..', 'cdktf', 'main.js');
+  const packageRootDir = path.resolve(__dirname, '..');
+  const appPath = path.resolve(__dirname, './cdktf.js');
   // keep outputs in user's project dir to not depend on node_modules deletion
   const output = path.resolve('.live-debug');
   const outputsFile = path.resolve('.live-debug', 'outputs.json');
+
   execSync([
     `npx cdktf deploy`,
     `--app "node ${appPath}"`,
     `--output "${output}"`,
     `--outputs-file "${outputsFile}"`,
     ].join(' '), {
-    cwd,
+    cwd: packageRootDir,
     stdio: 'inherit',
   });
 }
@@ -51,3 +52,9 @@ function ensureCloudId() {
 function getCmdOutput(cmd: string) {
   return execSync(cmd, { encoding: 'utf8' }).trim();
 }
+
+export const deployCommand: CommandModule = {
+  command: 'deploy',
+  describe: 'Deploy live-debug components to Yandex cloud',
+  handler: handler,
+};

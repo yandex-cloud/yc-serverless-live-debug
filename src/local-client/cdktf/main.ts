@@ -23,9 +23,11 @@ export type LiveDebugStackOutputs = {
 
 export function main() {
   const app = new App();
+
   new LiveDebugStack(app, 'live-debug', {
     folderName: process.env.LIVE_DEBUG_FOLDER_NAME || 'live-debug',
   });
+
   app.synth();
 }
 
@@ -76,13 +78,13 @@ export class LiveDebugStack extends TerraformStack {
 
   private createStub() {
     return new Stub(this, 'stub', {
-      zip: this.createZip('fn-stub-zip'),
+      zip: this.createZip('fn-stub'),
     });
   }
 
   private createStore() {
     return new Store(this, 'store', {
-      zip: this.createZip('fn-store-zip'),
+      zip: this.createZip('fn-store'),
     });
   }
 
@@ -99,7 +101,7 @@ export class LiveDebugStack extends TerraformStack {
 
   private createZip(fnDir: string) {
     return new TerraformAsset(this, `zip-${fnDir}`, {
-      path: path.resolve(__dirname, '..', '..', '..', 'dist', fnDir),
+      path: path.resolve(__dirname, fnDir),
       type: AssetType.ARCHIVE,
     });
   }

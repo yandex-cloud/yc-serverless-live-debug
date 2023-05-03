@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { runLocalClient } from '..';
 import { logger } from '../../helpers/logger';
+import { Arguments, CommandModule } from "yargs";
 
 const CONFIG_FILES = [
   'live-debug.config.ts',
@@ -16,18 +17,34 @@ const CONFIG_FILES = [
   'live-debug.config.cjs',
 ];
 
-export default async function () {
-  const configFile = resolveConfigFile();
+interface RunOptions {
+  config?: string
+}
+
+const handler = async function (args: Arguments<RunOptions>) {
+  const configFile = resolveConfigFile(args);
   const outputsFile = resolveOutputsFile();
   logger.info(`Running local client...`);
   await runLocalClient({ configFile, outputsFile });
-}
+};
 
-function resolveConfigFile() {
-  // todo: allow custom config via --config option
-  const configFile = CONFIG_FILES.find(file => fs.existsSync(file));
+function resolveConfigFile(args: Arguments<RunOptions>) {
+  let configFile: string | undefined;
+
+  if (args.config) {
+    if (!fs.existsSync(args.config)) {
+      throw new Error(`Provided config file ${args.config} was not found`);
+    }
+
+    configFile = args.config;
+  } else {
+    configFile = CONFIG_FILES.find(file => fs.existsSync(file));
+  }
+
   if (!configFile) throw new Error(`No live-debug.config.(ts|js) found`);
+
   logger.info(`Using config: ${configFile}`);
+
   return configFile;
 }
 
@@ -36,3 +53,14 @@ function resolveOutputsFile() {
   return path.resolve('.live-debug', 'outputs.json');
 }
 
+export const runCommand: CommandModule<RunOptions> = {
+  command: 'run',
+  describe: 'Run live-debug',
+  builder: {
+    'config': {
+      alias: 'c',
+      string: true,
+    }
+  },
+  handler: handler,
+};

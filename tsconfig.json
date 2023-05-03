@@ -8,6 +8,15 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist/",
+    "typeRoots": [
+      "node_modules/@types/",
+      "typings/"
+    ]
   },
-  "include": [ "src", "test", "scripts" ]
+  "include": [
+    "src"
+  ]
 }
