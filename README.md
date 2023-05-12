@@ -10,6 +10,7 @@ Live debug of Yandex Cloud Functions in Node.js.
     + [Debug several functions](#debug-several-functions)
     + [Debug other triggers](#debug-other-triggers)
 - [Watch](#watch)
+- [Cleanup](#cleanup)
 
 <!-- tocstop -->
 
@@ -166,4 +167,12 @@ export default defineConfig({
   watch: 'src',
   handler: ...
 });
+```
+
+## Cleanup
+
+To destroy all live-debug resources in cloud run the following command:
+
+```
+npx serverless-live-debug destroy
 ```
