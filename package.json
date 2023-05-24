@@ -19,6 +19,7 @@
     "test:d": "LOG_LEVEL=debug npm t",
     "example:deploy": "APP_ENV=production npm run build && node ./dist/cli.js deploy",
     "example:run": "node ./dist/cli.js run -c example/live-debug.config.ts",
+    "example:destroy": "APP_ENV=production npm run build:lib && node ./dist/cli.js destroy",
     "toc": "markdown-toc README.md -i",
     "build:fns": "webpack --config webpack-fns.ts",
     "build:lib": "webpack --config webpack-lib.ts",

@@ -9,9 +9,9 @@
  * TODO: change location of terraform.live-debug.tfstate to keep project dir cleaner
  */
 
-import path from 'node:path';
 import { execSync } from 'node:child_process';
-import { CommandModule } from "yargs";
+import { CommandModule } from 'yargs';
+import { ensureAuth, ensureCloudId, getTerraformPaths } from './helpers';
 
 const handler = function () {
   ensureAuth();
@@ -20,12 +20,7 @@ const handler = function () {
 };
 
 function deployStack() {
-  const packageRootDir = path.resolve(__dirname, '..');
-  const appPath = path.resolve(__dirname, './cdktf.js');
-  // keep outputs in user's project dir to not depend on node_modules deletion
-  const output = path.resolve('.live-debug');
-  const outputsFile = path.resolve('.live-debug', 'outputs.json');
-
+  const { appPath, output, outputsFile, packageRootDir } = getTerraformPaths();
   execSync([
     `npx cdktf deploy`,
     `--app "node ${appPath}"`,
@@ -35,22 +30,6 @@ function deployStack() {
     cwd: packageRootDir,
     stdio: 'inherit',
   });
-}
-
-function ensureAuth() {
-  if (!process.env.YC_TOKEN && !process.env.YC_SERVICE_ACCOUNT_KEY_FILE) {
-    process.env.YC_TOKEN = getCmdOutput('yc iam create-token');
-  }
-}
-
-function ensureCloudId() {
-  if (!process.env.YC_CLOUD_ID) {
-    process.env.YC_CLOUD_ID = getCmdOutput('yc config get cloud-id');
-  }
-}
-
-function getCmdOutput(cmd: string) {
-  return execSync(cmd, { encoding: 'utf8' }).trim();
 }
 
 export const deployCommand: CommandModule = {

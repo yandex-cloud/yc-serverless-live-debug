@@ -5,10 +5,10 @@
  * npm run example:run
  */
 import fs from 'node:fs';
-import path from 'node:path';
 import { runLocalClient } from '..';
 import { logger } from '../../helpers/logger';
 import { Arguments, CommandModule } from "yargs";
+import { getTerraformPaths } from './helpers';
 
 const CONFIG_FILES = [
   'live-debug.config.ts',
@@ -23,7 +23,7 @@ interface RunOptions {
 
 const handler = async function (args: Arguments<RunOptions>) {
   const configFile = resolveConfigFile(args);
-  const outputsFile = resolveOutputsFile();
+  const { outputsFile } = getTerraformPaths();
   logger.info(`Running local client...`);
   await runLocalClient({ configFile, outputsFile });
 };
@@ -46,11 +46,6 @@ function resolveConfigFile(args: Arguments<RunOptions>) {
   logger.info(`Using config: ${configFile}`);
 
   return configFile;
-}
-
-function resolveOutputsFile() {
-  // todo: allow custom path to outputs via --outputs option
-  return path.resolve('.live-debug', 'outputs.json');
 }
 
 export const runCommand: CommandModule<RunOptions> = {
