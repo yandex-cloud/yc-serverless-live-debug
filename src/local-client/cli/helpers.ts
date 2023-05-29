@@ -25,7 +25,7 @@ export function getTerraformPaths() {
 }
 
 export type AutoApproveArg = { autoApprove: boolean };
-export function getAutoApproveOption(): {[key: string]: Options} {
+export function getAutoApproveOption(): Record<string, Options> {
   return {
     'auto-approve': {
       default: false,
