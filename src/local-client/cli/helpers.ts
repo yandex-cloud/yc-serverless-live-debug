@@ -29,7 +29,7 @@ export function getAutoApproveOption(): Record<string, Options> {
   return {
     'auto-approve': {
       default: false,
-      describe: 'Auto approve',
+      describe: 'Automatically approve terraform actions',
       type: 'boolean'
     }
   };
