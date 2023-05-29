@@ -11,29 +11,32 @@
 
 import { execSync } from 'node:child_process';
 import { CommandModule } from 'yargs';
-import { ensureAuth, ensureCloudId, getTerraformPaths } from './helpers';
+import { getAutoApproveOption, ensureAuth, ensureCloudId, getTerraformPaths, AutoApproveArg } from './helpers';
 
-const handler = function () {
-  ensureAuth();
-  ensureCloudId();
-  deployStack();
+export const deployCommand: CommandModule<object, AutoApproveArg> = {
+  command: 'deploy',
+  describe: 'Deploy live-debug components to Yandex cloud',
+  builder: {
+    ...getAutoApproveOption(),
+  },
+  handler: ({ autoApprove }) => {
+    ensureAuth();
+    ensureCloudId();
+    deployStack({ autoApprove });
+  },
 };
 
-function deployStack() {
+function deployStack({ autoApprove = false } = {}) {
   const { appPath, output, outputsFile, packageRootDir } = getTerraformPaths();
-  execSync([
+  const cmd = [
     `npx cdktf deploy`,
     `--app "node ${appPath}"`,
     `--output "${output}"`,
     `--outputs-file "${outputsFile}"`,
-    ].join(' '), {
+    autoApprove ? `--auto-approve` : '',
+  ].filter(Boolean).join(' ');
+  execSync(cmd, {
     cwd: packageRootDir,
     stdio: 'inherit',
   });
 }
-
-export const deployCommand: CommandModule = {
-  command: 'deploy',
-  describe: 'Deploy live-debug components to Yandex cloud',
-  handler: handler,
-};

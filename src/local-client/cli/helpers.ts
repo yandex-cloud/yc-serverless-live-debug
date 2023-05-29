@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { execSync } from 'node:child_process';
+import { Options } from 'yargs';
 
 export function ensureAuth() {
   if (!process.env.YC_TOKEN && !process.env.YC_SERVICE_ACCOUNT_KEY_FILE) {
@@ -20,6 +21,17 @@ export function getTerraformPaths() {
     // keep terraform outputs in user's project dir to not depend on node_modules deletion
     output: path.resolve('.live-debug'),
     outputsFile: path.resolve('.live-debug', 'outputs.json'),
+  };
+}
+
+export type AutoApproveArg = { autoApprove: boolean };
+export function getAutoApproveOption(): Record<string, Options> {
+  return {
+    'auto-approve': {
+      default: false,
+      describe: 'Automatically approve terraform actions',
+      type: 'boolean'
+    }
   };
 }
 
