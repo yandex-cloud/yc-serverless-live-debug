@@ -6,8 +6,13 @@ on:
       - alpha
       - beta
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-20.04
     steps:
       - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@f69248b52b7991214847e889f28ba0883ed0ca2c
-      - run: npm run cdktf:get && npm run build
+      - run: npm run cdktf:get
+      - run: npm run example:deploy
+      - run: npm run test
+      - run: node ./dist/cli.js destroy
+        if: always()
+

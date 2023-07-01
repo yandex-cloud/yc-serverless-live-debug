@@ -10,9 +10,9 @@ export class Sa extends Construct {
     super(scope, name);
     this.instance = new IamServiceAccount(this, 'sa', {
       // sa name should be unique
-      name: `${this.scope.folder.id}-sa`,
+      name: `${this.scope.folderId}-sa`,
       description: 'Service account for live debug',
-      folderId: this.scope.folder.id,
+      folderId: this.scope.folderId,
     });
     this.createRoles([
       'serverless.functions.invoker',
@@ -29,7 +29,7 @@ export class Sa extends Construct {
     roles.forEach(role => {
       new ResourcemanagerFolderIamBinding(this, role, {
         members: [ `serviceAccount:${this.id}` ],
-        folderId: this.scope.folder.id,
+        folderId: this.scope.folderId,
         role,
       });
     });

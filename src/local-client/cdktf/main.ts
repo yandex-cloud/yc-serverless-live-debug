@@ -32,7 +32,7 @@ export function main() {
 }
 
 export class LiveDebugStack extends TerraformStack {
-  folder: ResourcemanagerFolder;
+  folderId: string;
   sa: Sa;
   ydb: YdbDatabaseServerless;
   stub: Stub;
@@ -43,7 +43,7 @@ export class LiveDebugStack extends TerraformStack {
     super(scope, id);
     this.initBackend();
     this.initProvider();
-    this.folder = this.createFolder();
+    this.folderId = this.getFolderId();
     this.sa = this.createSa();
     this.ydb = this.createYdb();
     this.stub = this.createStub();
@@ -66,10 +66,12 @@ export class LiveDebugStack extends TerraformStack {
     });
   }
 
-  private createFolder() {
-    return new ResourcemanagerFolder(this, 'folder', {
-      name: this.config.folderName,
-    });
+  private getFolderId() {
+    return process.env.YC_FOLDER_ID
+      ? process.env.YC_FOLDER_ID
+      : new ResourcemanagerFolder(this, 'folder', {
+          name: this.config.folderName,
+        }).id;
   }
 
   private createSa() {
@@ -95,7 +97,7 @@ export class LiveDebugStack extends TerraformStack {
   private createYdb() {
     return new YdbDatabaseServerless(this, 'ydb', {
       name: 'live-debug-db',
-      folderId: this.folder.id,
+      folderId: this.folderId,
     });
   }
 
