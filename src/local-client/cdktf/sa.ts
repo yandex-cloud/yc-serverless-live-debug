@@ -10,7 +10,7 @@ export class Sa extends Construct {
     super(scope, name);
     this.instance = new IamServiceAccount(this, 'sa', {
       // sa name should be unique
-      name: `${this.scope.folderId}-sa`,
+      name: `sa-live-debug-${this.scope.folderId}`,
       description: 'Service account for live debug',
       folderId: this.scope.folderId,
     });

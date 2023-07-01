@@ -60,6 +60,7 @@ export class LiveDebugStack extends TerraformStack {
 
   private initProvider() {
     new YandexProvider(this, 'provider', {
+      // Only one of token or service_account_key_file must be specified.
       token: process.env.YC_TOKEN,
       serviceAccountKeyFile: process.env.YC_SERVICE_ACCOUNT_KEY_FILE,
       cloudId: process.env.YC_CLOUD_ID,
@@ -67,11 +68,9 @@ export class LiveDebugStack extends TerraformStack {
   }
 
   private getFolderId() {
-    return process.env.YC_FOLDER_ID
-      ? process.env.YC_FOLDER_ID
-      : new ResourcemanagerFolder(this, 'folder', {
-          name: this.config.folderName,
-        }).id;
+    return process.env.YC_FOLDER_ID ?? new ResourcemanagerFolder(this, 'folder', {
+      name: this.config.folderName,
+    }).id;
   }
 
   private createSa() {

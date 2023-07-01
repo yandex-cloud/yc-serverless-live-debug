@@ -5,14 +5,20 @@ on:
       - master
       - alpha
       - beta
+
 jobs:
   build-and-test:
     runs-on: ubuntu-20.04
+    env:
+      YC_CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
+      YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
+      YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SERVICE_ACCOUNT_KEY_FILE }}
     steps:
       - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@f69248b52b7991214847e889f28ba0883ed0ca2c
       - run: npm run cdktf:get
-      - run: npm run example:deploy
+      - run: APP_ENV=production npm run build
+      - run: node ./dist/cli.js deploy --auto-approve
       - run: npm run test
-      - run: node ./dist/cli.js destroy
-        if: always()
+      # - if: always()
+      #   run: node ./dist/cli.js destroy
 
