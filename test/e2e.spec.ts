@@ -15,7 +15,9 @@ if (!fs.existsSync(outputsFile)) {
   process.exit(1);
 }
 
-describe('live debug', () => {
+describe('live debug', function () {
+
+  this.timeout(process.env.CI ? 20_000 : 10_000);
 
   afterEach(async () => {
     await localClient?.close();

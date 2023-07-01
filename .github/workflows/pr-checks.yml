@@ -17,8 +17,9 @@ jobs:
       - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@f69248b52b7991214847e889f28ba0883ed0ca2c
       - run: npm run cdktf:get
       - run: APP_ENV=production npm run build
-      - run: node ./dist/cli.js deploy --auto-approve
+      - id: deploy
+        run: node ./dist/cli.js deploy --auto-approve
       - run: npm run test
-      # - if: always()
-      #   run: node ./dist/cli.js destroy
+      - if: steps.deploy.outcome == 'success'
+        run: node ./dist/cli.js destroy --auto-approve
 
