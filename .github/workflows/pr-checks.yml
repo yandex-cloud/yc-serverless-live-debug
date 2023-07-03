@@ -9,7 +9,24 @@ on:
 concurrency: tests-in-single-folder
 
 jobs:
-  build-and-test:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      APP_ENV: production
+    steps:
+      - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@f69248b52b7991214847e889f28ba0883ed0ca2c
+      - run: npm run cdktf:get
+      - run: npm run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+  test:
+    needs: build
+    # Skip for PRs from forks as secrets are not available there
+    # See: https://github.com/orgs/community/discussions/26829
+    if: github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name
     runs-on: ubuntu-20.04
     env:
       YC_CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
@@ -17,11 +34,12 @@ jobs:
       YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SERVICE_ACCOUNT_KEY_FILE }}
     steps:
       - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@f69248b52b7991214847e889f28ba0883ed0ca2c
-      - run: npm run cdktf:get
-      - run: APP_ENV=production npm run build
+      - uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
       - id: deploy
         run: node ./dist/cli.js deploy --auto-approve
       - run: npm run test
       - if: steps.deploy.outcome == 'success'
         run: node ./dist/cli.js destroy --auto-approve
-
