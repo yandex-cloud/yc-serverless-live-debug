@@ -6,8 +6,6 @@ on:
       - alpha
       - beta
 
-concurrency: tests-in-single-folder
-
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -27,6 +25,7 @@ jobs:
     # Skip for PRs from forks as secrets are not available there
     # See: https://github.com/orgs/community/discussions/26829
     if: github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name
+    concurrency: tests-in-single-folder
     runs-on: ubuntu-20.04
     env:
       YC_CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
