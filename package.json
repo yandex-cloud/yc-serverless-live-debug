@@ -15,7 +15,7 @@
     "cdktf:get": "npx cdktf get --output src/local-client/.gen",
     "lint": "eslint src test",
     "lint:fix": "npm run lint -- --fix",
-    "test": "LOG_LEVEL=${LOG_LEVEL:-error} mocha -r ts-node/register test/*.spec.ts -t 10000",
+    "test": "LOG_LEVEL=${LOG_LEVEL:-error} mocha -r ts-node/register test/*.spec.ts",
     "test:d": "LOG_LEVEL=debug npm t",
     "example:deploy": "APP_ENV=production npm run build && node ./dist/cli.js deploy",
     "example:run": "node ./dist/cli.js run -c example/live-debug.config.ts",
