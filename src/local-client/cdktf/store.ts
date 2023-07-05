@@ -20,7 +20,7 @@ export class Store extends Construct {
       entrypoint: 'index.handler',
       memory: 1024,
       executionTimeout: '5',
-      folderId: scope.folder.id,
+      folderId: scope.folderId,
       serviceAccountId: scope.sa.id,
       userHash: zip.assetHash,
       content: {

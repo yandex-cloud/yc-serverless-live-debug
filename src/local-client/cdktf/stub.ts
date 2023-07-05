@@ -23,7 +23,7 @@ export class Stub extends Construct {
       entrypoint: 'index.handler',
       memory: 1024,
       executionTimeout: '60',
-      folderId: scope.folder.id,
+      folderId: scope.folderId,
       serviceAccountId: scope.sa.id,
       userHash: zip.assetHash,
       content: {

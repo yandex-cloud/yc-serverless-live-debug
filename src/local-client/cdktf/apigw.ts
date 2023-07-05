@@ -14,7 +14,7 @@ export class Apigw extends Construct {
     this.instance = new ApiGateway(this, 'gateway', {
       name: this.title,
       description: 'API gateway to hold WS connections and accept stub function requests',
-      folderId: scope.folder.id,
+      folderId: scope.folderId,
       spec: this.createSpec(),
     });
   }
