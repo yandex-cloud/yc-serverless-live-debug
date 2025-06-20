@@ -97,6 +97,8 @@ export class LiveDebugStack extends TerraformStack {
     return new YdbDatabaseServerless(this, 'ydb', {
       name: 'live-debug-db',
       folderId: this.folderId,
+      // See: https://github.com/yandex-cloud/yc-serverless-live-debug/issues/21
+      locationId: 'ru-central1',
     });
   }
 
