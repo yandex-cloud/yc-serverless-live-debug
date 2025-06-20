@@ -79,7 +79,9 @@ async function connectToWs(gatewayId: string) {
 }
 
 function getStubWsUrl(gatewayId: string) {
-  return `wss://${gatewayId}.apigw.yandexcloud.net/ws/stub`;
+  // Actually 'gatewayId' holds full gateway host.
+  // DB field is kept as 'gatewayId' to avoid migration.
+  return `wss://${gatewayId}/ws/stub`;
 }
 
 function getStubId(req: CloudRequest) {

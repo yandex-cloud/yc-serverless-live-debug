@@ -30,6 +30,7 @@ export class WsClient {
       logger.info(`WS connection already open`);
       return;
     }
+    logger.info(`WS connection openning: ${this.wsUrl}`);
     await new Promise(resolve => {
       this.ws = new WebSocket(this.wsUrl, { headers: this.headers });
       this.ws.on('open', resolve);
@@ -77,6 +78,7 @@ export class WsClient {
 
   protected onUpgrade(req: http.IncomingMessage) {
     this.connectionId = <string>req.headers['x-yc-apigateway-websocket-connection-id'];
+    logger.info(`WS connection upgraded, connectionId: ${this.connectionId}`);
   }
 
   protected onClose(code: number, reason: Buffer) {
