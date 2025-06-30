@@ -12,7 +12,7 @@ jobs:
     env:
       APP_ENV: production
     steps:
-      - uses: actions/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.12.2
       - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@7992e39cce119c931dab92f6879013efff123009
@@ -35,7 +35,7 @@ jobs:
       YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
       YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SERVICE_ACCOUNT_KEY_FILE }}
     steps:
-      - uses: actions/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.12.2
       - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@7992e39cce119c931dab92f6879013efff123009
