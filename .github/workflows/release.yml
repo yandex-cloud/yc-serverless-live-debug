@@ -9,9 +9,9 @@ jobs:
   release:
     if: github.actor != 'yandex-cloud-bot'
     name: Release
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@f69248b52b7991214847e889f28ba0883ed0ca2c
+      - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@7992e39cce119c931dab92f6879013efff123009
         with:
           persist-credentials: false
       - env:

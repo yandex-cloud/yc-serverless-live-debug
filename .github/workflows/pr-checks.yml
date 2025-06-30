@@ -8,11 +8,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     env:
       APP_ENV: production
     steps:
-      - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@f69248b52b7991214847e889f28ba0883ed0ca2c
+      - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@7992e39cce119c931dab92f6879013efff123009
       - run: npm run cdktf:get
       - run: npm run build
       - uses: actions/upload-artifact@v3
@@ -26,13 +26,13 @@ jobs:
     # See: https://github.com/orgs/community/discussions/26829
     if: github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name
     concurrency: tests-in-single-folder
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     env:
       YC_CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
       YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
       YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SERVICE_ACCOUNT_KEY_FILE }}
     steps:
-      - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@f69248b52b7991214847e889f28ba0883ed0ca2c
+      - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@7992e39cce119c931dab92f6879013efff123009
       - uses: actions/download-artifact@v3
         with:
           name: dist
