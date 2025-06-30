@@ -11,6 +11,9 @@ jobs:
     name: Release
     runs-on: ubuntu-24.04
     steps:
+      - use: actions/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
       - uses: yandex-cloud/nodejs-sdk/.github/actions/checkout-and-install-node@7992e39cce119c931dab92f6879013efff123009
         with:
           persist-credentials: false
