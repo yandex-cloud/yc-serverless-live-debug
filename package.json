@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@yandex-cloud/nodejs-sdk": "^2.4.2",
-    "cdktf": "^0.15.5",
-    "cdktf-cli": "^0.15.5",
+    "cdktf": "^0.21.0",
+    "cdktf-cli": "^0.21.0",
     "chokidar": "^3.5.3",
     "console-log-level": "^1.4.1",
     "constructs": "^10.1.274",
